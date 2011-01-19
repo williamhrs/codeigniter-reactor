@@ -188,23 +188,26 @@ class CI_Config {
 	/**
 	 * Fetch a config file item - adds slash after item
 	 *
-	 * The second parameter allows a slash to be added to the end of
-	 * the item, in the case of a path.
-	 *
 	 * @access	public
 	 * @param	string	the config item name
-	 * @param	bool
 	 * @return	string
 	 */
 	function slash_item($item)
-	{
-		if ( ! isset($this->config[$item]))
-		{
-			return FALSE;
-		}
+        {
+                if ( ! isset($this->config[$item]))
+                {
+                        return FALSE;
+                }
 
-		return rtrim($this->config[$item], '/').'/';
-	}
+                $pref = $this->config[$item];
+
+                if ($pref != '' && substr($pref, -1) != '/')
+                {
+                        $pref .= '/';
+                }
+
+                return $pref;
+        }
 
 	// --------------------------------------------------------------------
 
