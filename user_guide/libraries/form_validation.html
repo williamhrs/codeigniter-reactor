@@ -586,6 +586,22 @@ it is assumed that the data is your newly processed form data.</p>
 
 <code>$this->form_validation->set_message('required', 'Your custom message here');</code>
 
+<p>You can also set custom messages with arrays, in the same way you set rules.  Use the following structure:</p>
+<textarea class="textarea" rows="13" style="width:100%">
+
+$messages = array(
+	array(
+		'rule'   => 'required', 
+		'message'   => 'Custom Message for Required Fields!' 
+	),
+	array(
+		'rule'   => 'valid_email', 
+		'message'   => 'That ain't no email!' 
+	)
+);
+
+$this->form_validation->set_message($messages);
+</textarea>
 
 
 <a name="translatingfn"></a>

@@ -168,6 +168,15 @@ class CI_Form_validation {
 		{
 			$lang = array($lang => $val);
 		}
+		else 
+		{
+			$new_lang = array();
+			foreach($lang as $l) 
+			{
+				$new_lang[$l['rule']] = $l['message'];
+			}
+			$lang = $new_lang;
+		}
 
 		$this->_error_messages = array_merge($this->_error_messages, $lang);
 
