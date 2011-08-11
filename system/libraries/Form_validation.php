@@ -1395,7 +1395,7 @@ class CI_Form_validation {
 	 * @return string
 	 * @author jondavidjohn
 	 */
-	function valid_date($str,$format = 'y-m-d')
+	function valid_date($str, $format = 'y-m-d')
 	{
 		$search = array(
 			'/[yY]/',
