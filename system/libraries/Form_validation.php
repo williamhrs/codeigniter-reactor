@@ -1418,7 +1418,7 @@ class CI_Form_validation {
 			$month = $match['month'];
 			$day   = $match['day'];
 
-			if(checkdate($month,$day,$year)) 
+			if (checkdate($month,$day,$year)) 
 			{
 				return TRUE;
 			}
