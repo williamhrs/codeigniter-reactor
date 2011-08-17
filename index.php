@@ -33,16 +33,21 @@ if (defined('ENVIRONMENT'))
 	switch (ENVIRONMENT)
 	{
 		case 'development':
-			error_reporting(E_ALL);
+			$error_level = E_ALL;
 		break;
 	
 		case 'testing':
 		case 'production':
-			error_reporting(0);
+			$error_level = 0;
 		break;
 
 		default:
 			exit('The application environment is not set correctly.');
+	}
+
+	if (isset($error_level) && function_exists('error_reporting'))
+	{
+		error_reporting($error_level);
 	}
 }
 
