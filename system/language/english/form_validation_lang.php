@@ -23,6 +23,7 @@ $lang['is_natural_no_zero']	= "The %s field must contain a number greater than z
 $lang['decimal']			= "The %s field must contain a decimal number.";
 $lang['less_than']			= "The %s field must contain a number less than %s.";
 $lang['greater_than']		= "The %s field must contain a number greater than %s.";
+$lang['valid_date']			= "The %s field must contain a valid date, correctly formatted.";
 
 
 /* End of file form_validation_lang.php */
