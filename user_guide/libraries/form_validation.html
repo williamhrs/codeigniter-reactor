@@ -586,6 +586,22 @@ it is assumed that the data is your newly processed form data.</p>
 
 <code>$this->form_validation->set_message('required', 'Your custom message here');</code>
 
+<p>You can also set custom messages with arrays, in the same way you set rules.  Use the following structure:</p>
+<textarea class="textarea" rows="13" style="width:100%">
+
+$messages = array(
+	array(
+		'rule'   => 'required', 
+		'message'   => 'Custom Message for Required Fields!' 
+	),
+	array(
+		'rule'   => 'valid_email', 
+		'message'   => 'That ain't no email!' 
+	)
+);
+
+$this->form_validation->set_message($messages);
+</textarea>
 
 
 <a name="translatingfn"></a>
@@ -951,6 +967,13 @@ POST array:</p>
 		<td class="td">Yes</td>
 		<td class="td">Returns FALSE if the form element is not unique to the table and field name in the parameter.</td>
 		<td class="td">is_unique[table.field]</td>
+	</tr>
+	
+	<tr>
+		<td class="td"><strong>valid_date</strong></td>
+		<td class="td">Optional - default format "y-m-d"</td>
+		<td class="td">Returns FALSE if the input format does not match the given format and then also checks that the date entered is also valid. Formatting character's [m|y|d] case has no effect.  Date formatting does <b>NOT</b> follow http://php.net/date formatting characters and is a simplified single character syntax</td>
+		<td class="td">valid_date valid_date[M.Y.D] valid_date[d/M/y]</td>
 	</tr>
 
 	<tr>
