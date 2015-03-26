@@ -6,7 +6,7 @@
  *
  * @package		CodeIgniter
  * @author		ExpressionEngine Dev Team
- * @copyright	Copyright (c) 2006 - 2010 EllisLab, Inc.
+ * @copyright	Copyright (c) 2006 - 2011 EllisLab, Inc.
  * @license		http://codeigniter.com/user_guide/license.html
  * @link		http://codeigniter.com
  * @since		Version 2.0
@@ -25,7 +25,7 @@
  * @link		
  */
 
-class Cache_memcached extends CI_Driver {
+class CI_Cache_memcached extends CI_Driver {
 
 	private $_memcached;	// Holds the memcached object
 
@@ -122,7 +122,7 @@ class Cache_memcached extends CI_Driver {
 			return FALSE;
 		}
 
-		list($value, $time, $ttl) = $stored;
+		list($data, $time, $ttl) = $stored;
 
 		return array(
 			'expire'	=> $time + $ttl,

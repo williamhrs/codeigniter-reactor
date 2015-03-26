@@ -50,6 +50,8 @@ function create_menu(basepath)
 			'<li><a href="'+base+'general/helpers.html">Helpers</a></li>' +
 			'<li><a href="'+base+'general/libraries.html">Using CodeIgniter Libraries</a></li>' +
 			'<li><a href="'+base+'general/creating_libraries.html">Creating Your Own Libraries</a></li>' +
+			'<li><a href="'+base+'general/drivers.html">Using CodeIgniter Drivers</a></li>' +
+			'<li><a href="'+base+'general/creating_drivers.html">Creating Your Own Drivers</a></li>' +
 			'<li><a href="'+base+'general/core_classes.html">Creating Core Classes</a></li>' +
 			'<li><a href="'+base+'general/hooks.html">Hooks - Extending the Core</a></li>' +
 			'<li><a href="'+base+'general/autoloader.html">Auto-loading Resources</a></li>' +
@@ -58,11 +60,19 @@ function create_menu(basepath)
 			'<li><a href="'+base+'general/errors.html">Error Handling</a></li>' +
 			'<li><a href="'+base+'general/caching.html">Caching</a></li>' +
 			'<li><a href="'+base+'general/profiling.html">Profiling Your Application</a></li>' +
+			'<li><a href="'+base+'general/cli.html">Running via the CLI</a></li>' +
 			'<li><a href="'+base+'general/managing_apps.html">Managing Applications</a></li>' +
+			'<li><a href="'+base+'general/environments.html">Handling Multiple Environments</a></li>' +
 			'<li><a href="'+base+'general/alternative_php.html">Alternative PHP Syntax</a></li>' +
 			'<li><a href="'+base+'general/security.html">Security</a></li>' +
 			'<li><a href="'+base+'general/styleguide.html">PHP Style Guide</a></li>' +
 			'<li><a href="'+base+'doc_style/index.html">Writing Documentation</a></li>' +
+		'</ul>' +
+
+		'<h3>Additional Resources</h3>' +
+		'<ul>' +
+		'<li><a href="http://codeigniter.com/forums/">Community Forums</a></li>' +
+		'<li><a href="http://codeigniter.com/wiki/">Community Wiki</a></li>' +
 		'</ul>' +
 
 		'</td><td class="td_sep" valign="top">' +
@@ -73,7 +83,6 @@ function create_menu(basepath)
 		'<li><a href="'+base+'libraries/calendar.html">Calendar Class</a></li>' +
 		'<li><a href="'+base+'libraries/cart.html">Cart Class</a></li>' +
 		'<li><a href="'+base+'libraries/config.html">Config Class</a></li>' +
-		'<li><a href="'+base+'database/index.html">Database Class</a></li>' +
 		'<li><a href="'+base+'libraries/email.html">Email Class</a></li>' +
 		'<li><a href="'+base+'libraries/encryption.html">Encryption Class</a></li>' +
 		'<li><a href="'+base+'libraries/file_uploading.html">File Uploading Class</a></li>' +
@@ -82,6 +91,7 @@ function create_menu(basepath)
 		'<li><a href="'+base+'libraries/table.html">HTML Table Class</a></li>' +
 		'<li><a href="'+base+'libraries/image_lib.html">Image Manipulation Class</a></li>' +
 		'<li><a href="'+base+'libraries/input.html">Input Class</a></li>' +
+		'<li><a href="'+base+'libraries/javascript.html">Javascript Class</a></li>' +
 		'<li><a href="'+base+'libraries/loader.html">Loader Class</a></li>' +
 		'<li><a href="'+base+'libraries/language.html">Language Class</a></li>' +
 		'<li><a href="'+base+'libraries/output.html">Output Class</a></li>' +
@@ -99,6 +109,13 @@ function create_menu(basepath)
 		'</ul>' +
 
 		'</td><td class="td_sep" valign="top">' +
+
+		'<h3>Driver Reference</h3>' +
+		'<ul>' +
+		'<li><a href="'+base+'libraries/caching.html">Caching Class</a></li>' +
+		'<li><a href="'+base+'database/index.html">Database Class</a></li>' +
+		'<li><a href="'+base+'libraries/javascript.html">Javascript Class</a></li>' +
+		'</ul>' +
 
 		'<h3>Helper Reference</h3>' +
 		'<ul>' +
@@ -123,12 +140,6 @@ function create_menu(basepath)
 		'<li><a href="'+base+'helpers/typography_helper.html">Typography Helper</a></li>' +
 		'<li><a href="'+base+'helpers/url_helper.html">URL Helper</a></li>' +
 		'<li><a href="'+base+'helpers/xml_helper.html">XML Helper</a></li>' +
-		'</ul>' +
-
-		'<h3>Additional Resources</h3>' +
-		'<ul>' +
-		'<li><a href="http://codeigniter.com/forums/">Community Forums</a></li>' +
-		'<li><a href="http://codeigniter.com/wiki/">Community Wiki</a></li>' +
 		'</ul>' +
 
 		'</td></tr></table>');

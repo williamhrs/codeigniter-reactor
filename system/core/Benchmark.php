@@ -6,7 +6,7 @@
  *
  * @package		CodeIgniter
  * @author		ExpressionEngine Dev Team
- * @copyright	Copyright (c) 2008 - 2010, EllisLab, Inc.
+ * @copyright	Copyright (c) 2008 - 2011, EllisLab, Inc.
  * @license		http://codeigniter.com/user_guide/license.html
  * @link		http://codeigniter.com
  * @since		Version 1.0
@@ -29,6 +29,11 @@
  */
 class CI_Benchmark {
 
+	/**
+	 * List of all benchmark markers and when they were added
+	 *
+	 * @var array
+	 */
 	var $marker = array();
 
 	// --------------------------------------------------------------------

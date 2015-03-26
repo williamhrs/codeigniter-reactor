@@ -6,7 +6,7 @@
  *
  * @package		CodeIgniter
  * @author		ExpressionEngine Dev Team
- * @copyright	Copyright (c) 2008 - 2010, EllisLab, Inc.
+ * @copyright	Copyright (c) 2008 - 2011, EllisLab, Inc.
  * @license		http://codeigniter.com/user_guide/license.html
  * @link		http://codeigniter.com
  * @since		Version 1.0
@@ -119,9 +119,13 @@ class CI_DB_mysql_forge extends CI_DB_forge {
 					$sql .= ' DEFAULT \''.$attributes['DEFAULT'].'\'';
 				}
 
-				if (array_key_exists('NULL', $attributes))
+				if (array_key_exists('NULL', $attributes) && $attributes['NULL'] === TRUE)
 				{
-					$sql .= ($attributes['NULL'] === TRUE) ? ' NULL' : ' NOT NULL';
+					$sql .= ' NULL';
+				}
+				else
+				{
+					$sql .= ' NOT NULL';
 				}
 
 				if (array_key_exists('AUTO_INCREMENT', $attributes) && $attributes['AUTO_INCREMENT'] === TRUE)

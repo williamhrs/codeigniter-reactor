@@ -6,7 +6,7 @@
  *
  * @package		CodeIgniter
  * @author		ExpressionEngine Dev Team
- * @copyright	Copyright (c) 2008 - 2010, EllisLab, Inc.
+ * @copyright	Copyright (c) 2008 - 2011, EllisLab, Inc.
  * @license		http://codeigniter.com/user_guide/license.html
  * @link		http://codeigniter.com
  * @since		Version 1.0
@@ -54,6 +54,9 @@ class CI_DB_mysqli_driver extends CI_DB {
 	 */
 	var $delete_hack = TRUE;
 
+	// whether SET NAMES must be used to set the character set
+	var $use_set_names;
+	
 	// --------------------------------------------------------------------
 
 	/**
@@ -132,7 +135,20 @@ class CI_DB_mysqli_driver extends CI_DB {
 	 */
 	function _db_set_charset($charset, $collation)
 	{
-		return @mysqli_query($this->conn_id, "SET NAMES '".$this->escape_str($charset)."' COLLATE '".$this->escape_str($collation)."'");
+		if ( ! isset($this->use_set_names))
+		{
+			// mysqli_set_charset() requires MySQL >= 5.0.7, use SET NAMES as fallback
+			$this->use_set_names = (version_compare(mysqli_get_server_info($this->conn_id), '5.0.7', '>=')) ? FALSE : TRUE;
+		}
+
+		if ($this->use_set_names === TRUE)
+		{
+			return @mysqli_query($this->conn_id, "SET NAMES '".$this->escape_str($charset)."' COLLATE '".$this->escape_str($collation)."'");
+		}
+		else
+		{
+			return @mysqli_set_charset($this->conn_id, $charset);
+		}
 	}
 
 	// --------------------------------------------------------------------
@@ -287,7 +303,7 @@ class CI_DB_mysqli_driver extends CI_DB {
 	{
 		if (is_array($str))
 		{
-			foreach($str as $key => $val)
+			foreach ($str as $key => $val)
 			{
 				$str[$key] = $this->escape_str($val, $like);
 			}
@@ -539,6 +555,24 @@ class CI_DB_mysqli_driver extends CI_DB {
 	// --------------------------------------------------------------------
 
 	/**
+	 * Insert_batch statement
+	 *
+	 * Generates a platform-specific insert string from the supplied data
+	 *
+	 * @access	public
+	 * @param	string	the table name
+	 * @param	array	the insert keys
+	 * @param	array	the insert values
+	 * @return	string
+	 */
+	function _insert_batch($table, $keys, $values)
+	{
+		return "INSERT INTO ".$table." (".implode(', ', $keys).") VALUES ".implode(', ', $values);
+	}
+	
+	// --------------------------------------------------------------------
+
+	/**
 	 * Update statement
 	 *
 	 * Generates a platform-specific update string from the supplied data
@@ -553,7 +587,7 @@ class CI_DB_mysqli_driver extends CI_DB {
 	 */
 	function _update($table, $values, $where, $orderby = array(), $limit = FALSE)
 	{
-		foreach($values as $key => $val)
+		foreach ($values as $key => $val)
 		{
 			$valstr[] = $key." = ".$val;
 		}
@@ -571,6 +605,57 @@ class CI_DB_mysqli_driver extends CI_DB {
 		return $sql;
 	}
 
+	// --------------------------------------------------------------------
+
+	/**
+	 * Update_Batch statement
+	 *
+	 * Generates a platform-specific batch update string from the supplied data
+	 *
+	 * @access	public
+	 * @param	string	the table name
+	 * @param	array	the update data
+	 * @param	array	the where clause
+	 * @return	string
+	 */
+	function _update_batch($table, $values, $index, $where = NULL)
+	{
+		$ids = array();
+		$where = ($where != '' AND count($where) >=1) ? implode(" ", $where).' AND ' : '';
+
+		foreach ($values as $key => $val)
+		{
+			$ids[] = $val[$index];
+
+			foreach (array_keys($val) as $field)
+			{
+				if ($field != $index)
+				{
+					$final[$field][] =  'WHEN '.$index.' = '.$val[$index].' THEN '.$val[$field];
+				}
+			}
+		}
+
+		$sql = "UPDATE ".$table." SET ";
+		$cases = '';
+
+		foreach ($final as $k => $v)
+		{
+			$cases .= $k.' = CASE '."\n";
+			foreach ($v as $row)
+			{
+				$cases .= $row."\n";
+			}
+
+			$cases .= 'ELSE '.$k.' END, ';
+		}
+
+		$sql .= substr($cases, 0, -2);
+
+		$sql .= ' WHERE '.$where.$index.' IN ('.implode(',', $ids).')';
+
+		return $sql;
+	}
 
 	// --------------------------------------------------------------------
 

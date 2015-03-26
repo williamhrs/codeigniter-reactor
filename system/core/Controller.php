@@ -6,7 +6,7 @@
  *
  * @package		CodeIgniter
  * @author		ExpressionEngine Dev Team
- * @copyright	Copyright (c) 2008 - 2010, EllisLab, Inc.
+ * @copyright	Copyright (c) 2008 - 2011, EllisLab, Inc.
  * @license		http://codeigniter.com/user_guide/license.html
  * @link		http://codeigniter.com
  * @since		Version 1.0
@@ -48,12 +48,9 @@ class CI_Controller {
 
 		$this->load =& load_class('Loader', 'core');
 
-		$this->load->_base_classes =& is_loaded();
-
-		$this->load->_ci_autoloader();
-
+		$this->load->initialize();
+		
 		log_message('debug', "Controller Class Initialized");
-
 	}
 
 	public static function &get_instance()

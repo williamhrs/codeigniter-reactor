@@ -6,7 +6,7 @@
  *
  * @package		CodeIgniter
  * @author		ExpressionEngine Dev Team
- * @copyright	Copyright (c) 2008 - 2010, EllisLab, Inc.
+ * @copyright	Copyright (c) 2008 - 2011, EllisLab, Inc.
  * @license		http://codeigniter.com/user_guide/license.html
  * @link		http://codeigniter.com
  * @since		Version 1.0
@@ -47,7 +47,7 @@ class CI_Calendar {
 	{
 		$this->CI =& get_instance();
 
-		if ( ! in_array('calendar_lang'.EXT, $this->CI->lang->is_loaded, TRUE))
+		if ( ! in_array('calendar_lang.php', $this->CI->lang->is_loaded, TRUE))
 		{
 			$this->CI->lang->load('calendar');
 		}

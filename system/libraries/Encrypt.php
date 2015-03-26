@@ -6,7 +6,7 @@
  *
  * @package		CodeIgniter
  * @author		ExpressionEngine Dev Team
- * @copyright	Copyright (c) 2008 - 2010, EllisLab, Inc.
+ * @copyright	Copyright (c) 2008 - 2011, EllisLab, Inc.
  * @license		http://codeigniter.com/user_guide/license.html
  * @link		http://codeigniter.com
  * @since		Version 1.0
@@ -524,7 +524,7 @@ class CI_Encrypt {
 		{
 			if ( ! function_exists('mhash'))
 			{
-				require_once(BASEPATH.'libraries/Sha1'.EXT);
+				require_once(BASEPATH.'libraries/Sha1.php');
 				$SH = new CI_SHA;
 				return $SH->generate($str);
 			}

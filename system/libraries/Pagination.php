@@ -6,7 +6,7 @@
  *
  * @package		CodeIgniter
  * @author		ExpressionEngine Dev Team
- * @copyright	Copyright (c) 2008 - 2010, EllisLab, Inc.
+ * @copyright	Copyright (c) 2008 - 2011, EllisLab, Inc.
  * @license		http://codeigniter.com/user_guide/license.html
  * @link		http://codeigniter.com
  * @since		Version 1.0
@@ -30,7 +30,7 @@ class CI_Pagination {
 	var $prefix				= ''; // A custom prefix added to the path.
 	var $suffix				= ''; // A custom suffix added to the path.
 
-	var $total_rows			= ''; // Total number of items (database results)
+	var $total_rows			=  0; // Total number of items (database results)
 	var $per_page			= 10; // Max number of items you want shown per page
 	var $num_links			=  2; // Number of "digit" links to show before/after the currently viewed page
 	var $cur_page			=  0; // The current page being viewed

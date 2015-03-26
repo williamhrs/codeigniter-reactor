@@ -6,7 +6,7 @@
  *
  * @package		CodeIgniter
  * @author		ExpressionEngine Dev Team
- * @copyright	Copyright (c) 2008 - 2010, EllisLab, Inc.
+ * @copyright	Copyright (c) 2008 - 2011, EllisLab, Inc.
  * @license		http://codeigniter.com/user_guide/license.html
  * @link		http://codeigniter.com
  * @since		Version 1.0
@@ -40,9 +40,10 @@
  */
 if ( ! function_exists('heading'))
 {
-	function heading($data = '', $h = '1')
+	function heading($data = '', $h = '1', $attributes = '')
 	{
-		return "<h".$h.">".$data."</h".$h.">";
+		$attributes = ($attributes != '') ? ' '.$attributes : $attributes;
+		return "<h".$h.$attributes.">".$data."</h".$h.">";
 	}
 }
 
@@ -258,7 +259,16 @@ if ( ! function_exists('doctype'))
 
 		if ( ! is_array($_doctypes))
 		{
-			if ( ! require_once(APPPATH.'config/doctypes.php'))
+			if (defined('ENVIRONMENT') AND is_file(APPPATH.'config/'.ENVIRONMENT.'/doctypes.php'))
+			{
+				include(APPPATH.'config/'.ENVIRONMENT.'/doctypes.php');
+			}
+			elseif (is_file(APPPATH.'config/doctypes.php'))
+			{
+				include(APPPATH.'config/doctypes.php');
+			}
+
+			if ( ! is_array($_doctypes))
 			{
 				return FALSE;
 			}

@@ -6,7 +6,7 @@
  *
  * @package		CodeIgniter
  * @author		ExpressionEngine Dev Team
- * @copyright	Copyright (c) 2008 - 2010, EllisLab, Inc.
+ * @copyright	Copyright (c) 2008 - 2011, EllisLab, Inc.
  * @license		http://codeigniter.com/user_guide/license.html
  * @link		http://codeigniter.com
  * @since		Version 1.0
@@ -28,8 +28,23 @@
  */
 class CI_Config {
 
+	/**
+	 * List of all loaded config values
+	 *
+	 * @var array
+	 */
 	var $config = array();
+	/**
+	 * List of all loaded config files
+	 *
+	 * @var array
+	 */
 	var $is_loaded = array();
+	/**
+	 * List of paths to search when trying to load a config file
+	 *
+	 * @var array
+	 */
 	var $_config_paths = array(APPPATH);
 
 	/**
@@ -51,7 +66,7 @@ class CI_Config {
 		// Set the base_url automatically if none was provided
 		if ($this->config['base_url'] == '')
 		{
-			if(isset($_SERVER['HTTP_HOST']))
+			if (isset($_SERVER['HTTP_HOST']))
 			{
 				$base_url = isset($_SERVER['HTTPS']) && strtolower($_SERVER['HTTPS']) !== 'off' ? 'https' : 'http';
 				$base_url .= '://'. $_SERVER['HTTP_HOST'];
@@ -74,24 +89,40 @@ class CI_Config {
 	 *
 	 * @access	public
 	 * @param	string	the config file name
+	 * @param   boolean  if configuration values should be loaded into their own section
+	 * @param   boolean  true if errors should just return false, false if an error message should be displayed
 	 * @return	boolean	if the file was loaded correctly
 	 */
 	function load($file = '', $use_sections = FALSE, $fail_gracefully = FALSE)
 	{
-		$file = ($file == '') ? 'config' : str_replace(EXT, '', $file);
+		$file = ($file == '') ? 'config' : str_replace('.php', '', $file);
+		$found = FALSE;
 		$loaded = FALSE;
 
-		foreach($this->_config_paths as $path)
+		foreach ($this->_config_paths as $path)
 		{
-			$file_path = $path.'config/'.$file.EXT;
+			$check_locations = defined('ENVIRONMENT')
+				? array(ENVIRONMENT.'/'.$file, $file)
+				: array($file);
 
-			if (in_array($file_path, $this->is_loaded, TRUE))
+			foreach ($check_locations as $location)
 			{
-				$loaded = TRUE;
-				continue;
+				$file_path = $path.'config/'.$location.'.php';
+
+				if (in_array($file_path, $this->is_loaded, TRUE))
+				{
+					$loaded = TRUE;
+					continue 2;
+				}
+
+				if (file_exists($file_path))
+				{
+					$found = TRUE;
+					break;
+				}
 			}
 
-			if ( ! file_exists($path.'config/'.$file.EXT))
+			if ($found === FALSE)
 			{
 				continue;
 			}
@@ -128,6 +159,7 @@ class CI_Config {
 
 			$loaded = TRUE;
 			log_message('debug', 'Config file loaded: '.$file_path);
+			break;
 		}
 
 		if ($loaded === FALSE)
@@ -136,7 +168,7 @@ class CI_Config {
 			{
 				return FALSE;
 			}
-			show_error('The configuration file '.$file.EXT.' does not exist.');
+			show_error('The configuration file '.$file.'.php'.' does not exist.');
 		}
 
 		return TRUE;
@@ -232,8 +264,9 @@ class CI_Config {
 				$uri = implode('/', $uri);
 			}
 
+			$index = $this->item('index_page') == '' ? '' : $this->slash_item('index_page');
 			$suffix = ($this->item('url_suffix') == FALSE) ? '' : $this->item('url_suffix');
-			return $this->slash_item('base_url').$this->slash_item('index_page').trim($uri, '/').$suffix;
+			return $this->slash_item('base_url').$index.trim($uri, '/').$suffix;
 		}
 		else
 		{
